@@ -11,5 +11,6 @@
 (package! yari)
 (package! goto-gem)
 (package! projectile-rails)
+(package! ruby-tools)
 
 (package! evil-snipe :ignore t)

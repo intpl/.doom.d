@@ -10,8 +10,6 @@
    (interactive "nTransparency Value 0 - 100 opaque:")
    (set-frame-parameter (selected-frame) 'alpha value))
 
-(add-to-list 'default-frame-alist '(fullscreen . maximized))
-
 (require 'rvm)
 (rvm-use-default) ;; use rvm's default ruby for the current Emacs session
 
@@ -24,3 +22,20 @@
   '(push 'company-robe company-backends))
 
 (add-hook 'robe-mode-hook 'ac-robe-setup)
+
+(defadvice inf-ruby-console-auto (before activate-rvm-for-robe activate)
+  (rvm-activate-corresponding-ruby))
+
+;; (defvar my-leader-map (make-sparse-keymap)
+;;   "Keymap for \"leader key\" shortcuts.")
+
+;; ;; binding "," to the keymap
+;; (define-key evil-normal-state-map "," my-leader-map)
+
+;; (defun insert-semicolon-at-the-end () ((forward-line -1)
+;;                                         (insert ";")))
+
+;; (define-key my-leader-map ";" #'insert-semicolon-at-the-end)
+
+(setq company-idle-delay 0.1
+      company-minimum-prefix-length 2)
