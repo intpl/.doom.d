@@ -32,12 +32,12 @@
        eval              ; run code, run (also, repls)
        (evil +everywhere); come to the dark side, we have cookies
        file-templates    ; auto-snippets for empty files
-       (lookup           ; helps you navigate your code and documentation
-        +docsets)        ; ...or in Dash docsets locally
+       lookup           ; helps you navigate your code and documentation
+        ;; +docsets)        ; ...or in Dash docsets locally
        snippets          ; my elves. They type so I don't have to
        spellcheck        ; tasing you for misspelling mispelling
-       (syntax-checker   ; tasing you for every semicolon you forget
-        +childframe)     ; use childframes for error popups (Emacs 26+ only)
+       syntax-checker   ; tasing you for every semicolon you forget
+        ;; +childframe)     ; use childframes for error popups (Emacs 26+ only)
        workspaces        ; tab emulation, persistence & separate workspaces
 
        :completion
@@ -61,7 +61,7 @@
        ;;modeline          ; snazzy, Atom-inspired modeline, plus API
        nav-flash         ; blink the current line after jumping
        neotree           ; a project drawer, like NERDTree for vim
-       treemacs          ; a project drawer, like neotree but cooler
+       ;; treemacs          ; a project drawer, like neotree but cooler
        (popup            ; tame sudden yet inevitable temporary windows
         +all             ; catch all popups that start with an asterix
         +defaults)       ; default popup rules
@@ -183,8 +183,6 @@
        ;; library, and additional ex commands for evil-mode. Use it as a
        ;; reference for your own modules.
        (default +bindings +snippets +evil-commands))
-
-(dumb-jump-mode)
 
 (setq doom-font (font-spec :family "Source Code Pro Semibold" :size 20)
       doom-big-font (font-spec :family "Source Code Pro Semibold" :size 28))

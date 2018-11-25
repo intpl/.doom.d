@@ -11,5 +11,7 @@
 (package! yari)
 (package! goto-gem)
 (package! projectile-rails)
+(package! auto-complete)
 
+;; Remove from default DOOM installation
 (package! evil-snipe :ignore t)

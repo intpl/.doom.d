@@ -10,17 +10,19 @@
    (interactive "nTransparency Value 0 - 100 opaque:")
    (set-frame-parameter (selected-frame) 'alpha value))
 
-(add-to-list 'default-frame-alist '(fullscreen . maximized))
-
 (require 'rvm)
 (rvm-use-default) ;; use rvm's default ruby for the current Emacs session
 
-(defadvice inf-ruby-console-auto (before activate-rvm-for-robe activate)
-  (rvm-activate-corresponding-ruby))
+(defun add-string-to-end-of-line (str) "Adds a string to the end of line" (end-of-line) (insert str))
 
-(add-hook 'ruby-mode-hook 'robe-mode)
+(define-key evil-normal-state-map (kbd ", ,") (lambda () (interactive) (add-string-to-end-of-line ",")))
+(define-key evil-normal-state-map (kbd ", ;") (lambda () (interactive) (add-string-to-end-of-line ";")))
 
-(eval-after-load 'company
-  '(push 'company-robe company-backends))
+(defun add-string-below (str) "Adds a string to the line below" (evil-open-below 1) (insert str) (evil-normal-state))
+(defun add-string-above (str) "Adds a string to the line above" (evil-open-above 1) (insert str) (evil-normal-state))
 
-(add-hook 'robe-mode-hook 'ac-robe-setup)
+(evil-define-key 'normal js-mode-map (kbd ", o") (lambda () (interactive) (add-string-below "console.log()")))
+(evil-define-key 'normal js-mode-map (kbd ", O") (lambda () (interactive) (add-string-above "console.log()")))
+
+(evil-define-key 'normal enh-ruby-mode-map (kbd ", o") (lambda () (interactive) (add-string-below "binding.pry")))
+(evil-define-key 'normal enh-ruby-mode-map (kbd ", O") (lambda () (interactive) (add-string-above "binding.pry")))
