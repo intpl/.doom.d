@@ -13,5 +13,7 @@
 (package! projectile-rails)
 (package! ruby-tools)
 (package! company-tabnine)
+(package! auto-complete)
 
-(package! evil-snipe :ignore t)
+;; Remove from default DOOM installation
+(package! evil-snipe :disable t)

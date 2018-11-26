@@ -13,20 +13,6 @@
 (require 'rvm)
 (rvm-use-default) ;; use rvm's default ruby for the current Emacs session
 
-(defadvice inf-ruby-console-auto (before activate-rvm-for-robe activate)
-  (rvm-activate-corresponding-ruby))
-
-;; (defvar my-leader-map (make-sparse-keymap)
-;;   "Keymap for \"leader key\" shortcuts.")
-
-;; ;; binding "," to the keymap
-;; (define-key evil-normal-state-map "," my-leader-map)
-
-;; (defun insert-semicolon-at-the-end () ((forward-line -1)
-;;                                         (insert ";")))
-
-;; (define-key my-leader-map ";" #'insert-semicolon-at-the-end)
-
 (setq enh-ruby-add-encoding-comment-on-save nil)
 
 (add-to-list 'company-backends #'company-tabnine)
@@ -44,3 +30,17 @@
       '(company-tng-frontend
         company-pseudo-tooltip-frontend
         company-echo-metadata-frontend))
+
+(defun add-string-to-end-of-line (str) "Adds a string to the end of line" (end-of-line) (insert str))
+
+(define-key evil-normal-state-map (kbd ", ,") (lambda () (interactive) (add-string-to-end-of-line ",")))
+(define-key evil-normal-state-map (kbd ", ;") (lambda () (interactive) (add-string-to-end-of-line ";")))
+
+(defun add-string-below (str) "Adds a string to the line below" (evil-open-below 1) (insert str) (evil-normal-state))
+(defun add-string-above (str) "Adds a string to the line above" (evil-open-above 1) (insert str) (evil-normal-state))
+
+(evil-define-key 'normal js-mode-map (kbd ", o") (lambda () (interactive) (add-string-below "console.log()")))
+(evil-define-key 'normal js-mode-map (kbd ", O") (lambda () (interactive) (add-string-above "console.log()")))
+
+(evil-define-key 'normal enh-ruby-mode-map (kbd ", o") (lambda () (interactive) (add-string-below "binding.pry")))
+(evil-define-key 'normal enh-ruby-mode-map (kbd ", O") (lambda () (interactive) (add-string-above "binding.pry")))
