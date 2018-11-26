@@ -16,16 +16,6 @@
 (defadvice inf-ruby-console-auto (before activate-rvm-for-robe activate)
   (rvm-activate-corresponding-ruby))
 
-(add-hook 'ruby-mode-hook 'robe-mode)
-
-(eval-after-load 'company
-  '(push 'company-robe company-backends))
-
-(add-hook 'robe-mode-hook 'ac-robe-setup)
-
-(defadvice inf-ruby-console-auto (before activate-rvm-for-robe activate)
-  (rvm-activate-corresponding-ruby))
-
 ;; (defvar my-leader-map (make-sparse-keymap)
 ;;   "Keymap for \"leader key\" shortcuts.")
 
@@ -37,5 +27,20 @@
 
 ;; (define-key my-leader-map ";" #'insert-semicolon-at-the-end)
 
-(setq company-idle-delay 0.1
-      company-minimum-prefix-length 2)
+(setq enh-ruby-add-encoding-comment-on-save nil)
+
+(add-to-list 'company-backends #'company-tabnine)
+
+;; Trigger completion immediately.
+(setq company-idle-delay 0)
+
+;; Number the candidates (use M-1, M-2 etc to select completions).
+(setq company-show-numbers t)
+
+;; Use the tab-and-go frontend.
+;; Allows TAB to select and complete at the same time.
+(company-tng-configure-default)
+(setq company-frontends
+      '(company-tng-frontend
+        company-pseudo-tooltip-frontend
+        company-echo-metadata-frontend))

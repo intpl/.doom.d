@@ -12,5 +12,6 @@
 (package! goto-gem)
 (package! projectile-rails)
 (package! ruby-tools)
+(package! company-tabnine)
 
 (package! evil-snipe :ignore t)
