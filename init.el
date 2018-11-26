@@ -184,5 +184,5 @@
        ;; reference for your own modules.
        (default +bindings +snippets +evil-commands))
 
-(setq doom-font (font-spec :family "source code pro semibold" :size 13)
+(setq doom-font (font-spec :family "Source Code Pro Semibold" :size 20)
       doom-big-font (font-spec :family "Source Code Pro Semibold" :size 28))
