@@ -5,10 +5,14 @@
 
 ;; (setq doom-font (font-spec :family "Source Code Pro Medium" :size 16))
 
- (defun transparency (value)
-   "Sets the transparency of the frame window. 0=transparent/100=opaque"
-   (interactive "nTransparency Value 0 - 100 opaque:")
-   (set-frame-parameter (selected-frame) 'alpha value))
+(defun connect-gladecki ()
+  (interactive)
+  (dired "/ssh:gl:/home/bartek"))
+
+(defun transparency (value)
+  "Sets the transparency of the frame window. 0=transparent/100=opaque"
+  (interactive "nTransparency Value 0 - 100 opaque:")
+  (set-frame-parameter (selected-frame) 'alpha value))
 
 (require 'rvm)
 (rvm-use-default) ;; use rvm's default ruby for the current Emacs session
