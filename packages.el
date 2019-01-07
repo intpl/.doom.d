@@ -17,3 +17,4 @@
 
 ;; Remove from default DOOM installation
 (package! evil-snipe :disable t)
+(package! solaire-mode :disable t)

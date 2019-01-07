@@ -19,8 +19,6 @@
 
 (setq enh-ruby-add-encoding-comment-on-save nil)
 
-(add-to-list 'company-backends #'company-tabnine)
-
 ;; Trigger completion immediately.
 (setq company-idle-delay 0)
 
@@ -58,3 +56,6 @@
 (define-key evil-normal-state-map (kbd "SPC 4") (lambda () (interactive) (+workspace/switch-to 3)))
 (define-key evil-normal-state-map (kbd "SPC 5") (lambda () (interactive) (+workspace/switch-to 4)))
 (define-key evil-normal-state-map (kbd "SPC 6") (lambda () (interactive) (+workspace/switch-to 5)))
+
+(setenv "VISUAL" "emacsclient")
+(setenv "EDITOR" (getenv "VISUAL"))
