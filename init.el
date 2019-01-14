@@ -184,5 +184,8 @@
        ;; reference for your own modules.
        (default +bindings +snippets +evil-commands))
 
-(setq doom-font (font-spec :family "Source Code Pro Semibold" :size 20)
+(setq doom-font (font-spec :family "Source Code Pro Semibold" :size 16)
       doom-big-font (font-spec :family "Source Code Pro Semibold" :size 28))
+
+(require 'company-tabnine)
+(add-hook 'after-init-hook 'global-company-mode)

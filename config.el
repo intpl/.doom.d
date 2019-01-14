@@ -41,11 +41,11 @@
 (defun add-string-below (str) "Adds a string to the line below" (evil-open-below 1) (insert str) (evil-normal-state))
 (defun add-string-above (str) "Adds a string to the line above" (evil-open-above 1) (insert str) (evil-normal-state))
 
-(evil-define-key 'normal js-mode-map (kbd ", o") (lambda () (interactive) (add-string-below "console.log()")))
-(evil-define-key 'normal js-mode-map (kbd ", O") (lambda () (interactive) (add-string-above "console.log()")))
+(evil-define-key 'normal js-mode-map (kbd ", o") (lambda () (interactive) (add-string-below "console.log() // FIXME")))
+(evil-define-key 'normal js-mode-map (kbd ", O") (lambda () (interactive) (add-string-above "console.log() // FIXME")))
 
-(evil-define-key 'normal enh-ruby-mode-map (kbd ", o") (lambda () (interactive) (add-string-below "binding.pry")))
-(evil-define-key 'normal enh-ruby-mode-map (kbd ", O") (lambda () (interactive) (add-string-above "binding.pry")))
+(evil-define-key 'normal enh-ruby-mode-map (kbd ", o") (lambda () (interactive) (add-string-below "binding.pry # FIXME")))
+(evil-define-key 'normal enh-ruby-mode-map (kbd ", O") (lambda () (interactive) (add-string-above "binding.pry # FIXME")))
 
 (define-key evil-normal-state-map (kbd ", t") (lambda () (interactive) (+term/open-popup t)))
 (define-key evil-normal-state-map (kbd ", f s") 'save-buffer)
@@ -59,3 +59,8 @@
 
 (setenv "VISUAL" "emacsclient")
 (setenv "EDITOR" (getenv "VISUAL"))
+(setenv "TERM" "screen-256color")
+
+(setq multi-term-program "/usr/local/bin/fish")
+
+(define-key evil-normal-state-map (kbd ", r") (lambda () (interactive) (rvm-open-gem (getenv "GEM_HOME"))))
