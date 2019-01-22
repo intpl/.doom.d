@@ -63,4 +63,10 @@
 
 (setq multi-term-program "/usr/local/bin/fish")
 
+(define-key evil-normal-state-map (kbd "SPC r") (lambda () (interactive) (rvm-open-gem (getenv "GEM_HOME"))))
 (define-key evil-normal-state-map (kbd ", r") (lambda () (interactive) (rvm-open-gem (getenv "GEM_HOME"))))
+
+(global-set-key (kbd "C-:") 'avy-goto-char)
+
+(setq visual-line-mode 'nil)
+(setq display-line-numbers-type 'relative)
