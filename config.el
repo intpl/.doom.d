@@ -71,3 +71,19 @@
 (setq visual-line-mode 'nil)
 (setq display-line-numbers-type 'relative)
 (setq markdown-open-command "/Applications/MacDown.app/Contents/MacOS/MacDown")
+
+(defun copy-file-name-to-clipboard ()
+  "Copy the current buffer file name to the clipboard."
+  (interactive)
+  (let ((filename (if (equal major-mode 'dired-mode)
+                      default-directory
+                    (buffer-name))))
+    (when filename
+      (kill-new filename)
+      (message " -> '%s' <- " filename))))
+
+(define-key evil-normal-state-map (kbd "SPC f k") (lambda () (interactive) (copy-file-name-to-clipboard)))
+
+(define-key evil-normal-state-map (kbd ", g") (lambda () (interactive) (zoom)))
+(define-key evil-normal-state-map (kbd "SPC w ,") (lambda () (interactive) (zoom)))
+(custom-set-variables '(zoom-size '(0.618 . 0.618)))

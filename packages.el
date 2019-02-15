@@ -14,6 +14,7 @@
 (package! ruby-tools)
 (package! company-tabnine)
 (package! auto-complete)
+(package! zoom)
 
 ;; Remove from default DOOM installation
 (package! evil-snipe :disable t)
