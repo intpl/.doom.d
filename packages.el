@@ -15,7 +15,10 @@
 (package! company-tabnine)
 (package! auto-complete)
 (package! zoom)
+(package! graphql-mode)
+(package! graphql)
 
 ;; Remove from default DOOM installation
 (package! evil-snipe :disable t)
 (package! solaire-mode :disable t)
+(package! forge :disable t)

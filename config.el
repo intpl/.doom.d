@@ -86,4 +86,12 @@
 
 (define-key evil-normal-state-map (kbd ", g") (lambda () (interactive) (zoom)))
 (define-key evil-normal-state-map (kbd "SPC w ,") (lambda () (interactive) (zoom)))
-(custom-set-variables '(zoom-size '(0.618 . 0.618)))
+
+(custom-set-variables '(zoom-size '(0.8 . 0.8)))
+;(custom-set-variables '(zoom-size '(0.618 . 0.618)))
+
+(defadvice evil-inner-word (around underscore-as-word activate)
+  (let ((table (copy-syntax-table (syntax-table))))
+    (modify-syntax-entry ?_ "w" table)
+    (with-syntax-table table
+      ad-do-it)))
