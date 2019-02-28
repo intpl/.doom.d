@@ -41,13 +41,13 @@
        workspaces        ; tab emulation, persistence & separate workspaces
 
        :completion
-       (company          ; the ultimate code completion backend
-        +auto)           ; as-you-type code completion
-       ;; (helm             ; the *other* search engine for love and life
-       ;;  +fuzzy)          ; enable fuzzy search backend for helm
-       ;; ;;ido               ; the other *other* search engine...
-       (ivy              ; a search engine for love and life
-       +fuzzy)          ; enable fuzzy search backend for ivy
+       ;; (company          ; the ultimate code completion backend
+       ;;  +auto)           ; as-you-type code completion
+       (helm             ; the *other* search engine for love and life
+        +fuzzy)          ; enable fuzzy search backend for helm
+       ;;ido               ; the other *other* search engine...
+       ;; (ivy              ; a search engine for love and life
+       ;; +fuzzy)          ; enable fuzzy search backend for ivy
 
        :ui
        ;;deft              ; notational velocity for emacs
@@ -73,6 +73,7 @@
        window-select     ; visually switch windows
 
        :editor
+       fold
        ;;(format +onsave)  ; automated prettiness
        multiple-cursors  ; editing in many places at once
        ;;parinfer          ; turn lisp into python, sort of
@@ -83,7 +84,7 @@
        ediff             ; comparing files in emacs
        electric          ; smarter, keyword-based electric-indent
        ;;eshell            ; a consistent, cross-platform shell (wip)
-       hideshow          ; basic code-folding support
+       ;;hideshow          ; basic code-folding support
        imenu             ; an imenu sidebar and searchable code index
        term              ; terminals in emacs
        vc                ; version-control and emacs, sitting in a tree
@@ -91,7 +92,7 @@
        :tools
        ;;ansible
        ;;docker
-       editorconfig      ; let someone else argue about tabs vs spaces
+       ;;editorconfig      ; let someone else argue about tabs vs spaces
        ;;ein               ; tame jupyter notebooks with emacs
        ;;gist              ; interacting with github gists
        ;; macos             ; macos-specific commands
@@ -102,7 +103,7 @@
        ;;prodigy           ; fixme managing external services & code builders
        ;;rgb               ; creating color strings
        ;;terraform         ; infrastructure as code
-       ;;tmux              ; an api for interacting with tmux
+       tmux              ; an api for interacting with tmux
        ;;upload            ; map local to remote projects via ssh/ftp
        ;;wakatime
 
@@ -184,8 +185,5 @@
        ;; reference for your own modules.
        (default +bindings +snippets +evil-commands))
 
-(setq doom-font (font-spec :family "Source Code Pro Semibold" :size 16)
-      doom-big-font (font-spec :family "Source Code Pro Semibold" :size 28))
-
-(require 'company-tabnine)
-(add-hook 'after-init-hook 'global-company-mode)
+(setq doom-font (font-spec :family "Source Code Pro Semibold" :size 14)
+      doom-big-font (font-spec :family "Source Code Pro Semibold" :size 18))

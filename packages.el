@@ -17,6 +17,8 @@
 (package! zoom)
 (package! graphql-mode)
 (package! graphql)
+(package! company-flx)
+(package! evil-anzu)
 
 ;; Remove from default DOOM installation
 (package! evil-snipe :disable t)

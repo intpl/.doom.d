@@ -17,8 +17,14 @@
 (require 'rvm)
 (rvm-use-default) ;; use rvm's default ruby for the current Emacs session
 
+(defadvice inf-ruby-console-auto (before activate-rvm-for-robe activate)
+  (rvm-activate-corresponding-ruby))
+
 (setq enh-ruby-add-encoding-comment-on-save nil)
 
+(global-company-mode t)
+
+;; (require 'company-tabnine)
 ;; Trigger completion immediately.
 (setq company-idle-delay 0)
 
@@ -28,10 +34,17 @@
 ;; Use the tab-and-go frontend.
 ;; Allows TAB to select and complete at the same time.
 (company-tng-configure-default)
-(setq company-frontends
-      '(company-tng-frontend
-        company-pseudo-tooltip-frontend
-        company-echo-metadata-frontend))
+
+(push 'company-robe company-backends)
+(push 'company-capf company-backends)
+(push 'company-dabbrev company-backends)
+
+(push 'company-tng-frontend company-frontends)
+(push 'company-pseudo-tooltip-frontend company-frontends)
+(push 'company-echo-metadata-frontend company-frontends)
+
+(with-eval-after-load 'company (company-flx-mode +1))
+(setq company-flx-limit 200)
 
 (defun add-string-to-end-of-line (str) "Adds a string to the end of line" (end-of-line) (insert str))
 
@@ -95,3 +108,12 @@
     (modify-syntax-entry ?_ "w" table)
     (with-syntax-table table
       ad-do-it)))
+
+;; (global-auto-complete-mode t)
+;; (global-set-key (kbd "<S-tab>") 'ac-fuzzy-complete)
+
+;; (add-hook 'ruby-mode-hook #'auto-complete-mode)
+;; (add-hook 'enh-ruby-mode-hook #'auto-complete-mode)
+
+(with-eval-after-load 'evil
+  (require 'evil-anzu))
