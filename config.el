@@ -83,7 +83,7 @@
 
 (setq visual-line-mode 'nil)
 (setq display-line-numbers-type 'relative)
-(setq markdown-open-command "/Applications/MacDown.app/Contents/MacOS/MacDown")
+;;(setq markdown-open-command "/Applications/MacDown.app/Contents/MacOS/MacDown")
 
 (defun copy-file-name-to-clipboard ()
   "Copy the current buffer file name to the clipboard."
@@ -117,3 +117,6 @@
 
 (with-eval-after-load 'evil
   (require 'evil-anzu))
+
+(setq doom-font (font-spec :family "Source Code Pro Semibold" :size 20)
+      doom-big-font (font-spec :family "Source Code Pro Semibold" :size 26))

@@ -35,30 +35,25 @@
        lookup           ; helps you navigate your code and documentation
         ;; +docsets)        ; ...or in Dash docsets locally
        snippets          ; my elves. They type so I don't have to
-       spellcheck        ; tasing you for misspelling mispelling
-       syntax-checker   ; tasing you for every semicolon you forget
-        ;; +childframe)     ; use childframes for error popups (Emacs 26+ only)
        workspaces        ; tab emulation, persistence & separate workspaces
 
        :completion
-       ;; (company          ; the ultimate code completion backend
-       ;;  +auto)           ; as-you-type code completion
+       (company          ; the ultimate code completion backend
+         +auto)           ; as-you-type code completion
        (helm             ; the *other* search engine for love and life
         +fuzzy)          ; enable fuzzy search backend for helm
        ;;ido               ; the other *other* search engine...
-       ;; (ivy              ; a search engine for love and life
-       ;; +fuzzy)          ; enable fuzzy search backend for ivy
+       ;;ivy              ; a search engine for love and life
 
        :ui
        ;;deft              ; notational velocity for emacs
        doom              ; what makes doom look the way it does
        doom-dashboard    ; a nifty splash screen for emacs
-       doom-modeline     ; a snazzy atom-inspired mode-line
        doom-quit         ; doom quit-message prompts when you quit emacs
        evil-goggles      ; display visual hints when editing in evil
        ;;fci               ; a `fill-column' indicator
        hl-todo           ; highlight todo/fixme/note tags
-       ;;modeline          ; snazzy, atom-inspired modeline, plus api
+       modeline          ; snazzy, atom-inspired modeline, plus api
        nav-flash         ; blink the current line after jumping
        ;; neotree           ; a project drawer, like NERDTree for vim
        treemacs          ; a project drawer, like neotree but cooler
@@ -80,11 +75,12 @@
        rotate-text       ; cycle region at point between text candidates
 
        :emacs
-       dired             ; making dired pretty [functional]
-       ediff             ; comparing files in emacs
+       (dired             ; making dired pretty [functional]
+        +ranger
+        +icons
+        )
        electric          ; smarter, keyword-based electric-indent
        ;;eshell            ; a consistent, cross-platform shell (wip)
-       ;;hideshow          ; basic code-folding support
        imenu             ; an imenu sidebar and searchable code index
        term              ; terminals in emacs
        vc                ; version-control and emacs, sitting in a tree
@@ -94,6 +90,8 @@
        ;;docker
        ;;editorconfig      ; let someone else argue about tabs vs spaces
        ;;ein               ; tame jupyter notebooks with emacs
+       flycheck
+       flyspell          ; tasing you for misspelling mispelling
        ;;gist              ; interacting with github gists
        ;; macos             ; macos-specific commands
        ;;make              ; run make tasks from emacs
@@ -104,7 +102,7 @@
        ;;rgb               ; creating color strings
        ;;terraform         ; infrastructure as code
        tmux              ; an api for interacting with tmux
-       ;;upload            ; map local to remote projects via ssh/ftp
+       upload            ; map local to remote projects via ssh/ftp
        ;;wakatime
 
        :lang
@@ -145,7 +143,7 @@
        php               ; perl's insecure younger brother
        ;;plantuml          ; diagrams for confusing people more
        ;;purescript        ; javascript, but functional
-       ;;python            ; beautiful is better than ugly
+       python            ; beautiful is better than ugly
        ;;qt                ; the 'cutest' gui framework ever
        ;;racket            ; a dsl for dsls
        rest              ; emacs as a rest client
@@ -183,7 +181,5 @@
        ;; provides a spacemacs-inspired keybinding scheme, a custom yasnippet
        ;; library, and additional ex commands for evil-mode. use it as a
        ;; reference for your own modules.
-       (default +bindings +snippets +evil-commands))
-
-(setq doom-font (font-spec :family "Source Code Pro Semibold" :size 14)
-      doom-big-font (font-spec :family "Source Code Pro Semibold" :size 18))
+       ;; (default +bindings +snippets +evil-commands))
+       (default +bindings +smartparens))
