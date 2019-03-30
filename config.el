@@ -60,7 +60,7 @@
 (evil-define-key 'normal enh-ruby-mode-map (kbd ", o") (lambda () (interactive) (add-string-below "binding.pry # FIXME")))
 (evil-define-key 'normal enh-ruby-mode-map (kbd ", O") (lambda () (interactive) (add-string-above "binding.pry # FIXME")))
 
-(define-key evil-normal-state-map (kbd ", t") (lambda () (interactive) (+term/open-popup t)))
+(define-key evil-normal-state-map (kbd ", t") (lambda () (interactive) (multi-term-next)))
 (define-key evil-normal-state-map (kbd ", f s") 'save-buffer)
 
 (define-key evil-normal-state-map (kbd "SPC 1") (lambda () (interactive) (+workspace/switch-to 0)))
