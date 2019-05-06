@@ -24,3 +24,4 @@
 (package! evil-snipe :disable t)
 (package! solaire-mode :disable t)
 (package! forge :disable t)
+(package! evil-escape :disable t)

@@ -50,7 +50,7 @@
        doom              ; what makes doom look the way it does
        doom-dashboard    ; a nifty splash screen for emacs
        doom-quit         ; doom quit-message prompts when you quit emacs
-       evil-goggles      ; display visual hints when editing in evil
+       ophints
        ;;fci               ; a `fill-column' indicator
        hl-todo           ; highlight todo/fixme/note tags
        modeline          ; snazzy, atom-inspired modeline, plus api
