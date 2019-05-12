@@ -76,7 +76,6 @@
 
 (setq multi-term-program "/usr/bin/fish")
 
-(define-key evil-normal-state-map (kbd "SPC r") (lambda () (interactive) (rvm-open-gem (getenv "GEM_HOME"))))
 (define-key evil-normal-state-map (kbd ", r") (lambda () (interactive) (rvm-open-gem (getenv "GEM_HOME"))))
 
 (global-set-key (kbd "C-:") 'avy-goto-char)
