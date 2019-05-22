@@ -73,6 +73,7 @@
 (setenv "VISUAL" "emacsclient")
 (setenv "EDITOR" (getenv "VISUAL"))
 (setenv "TERM" "screen-256color")
+(setenv "TAG_CMD_FMT_STRING" "emacsclient +{{.LineNumber}}:{{.ColumnNumber}} {{.Filename}}")
 
 (setq multi-term-program "/usr/bin/fish")
 
@@ -117,5 +118,5 @@
 (with-eval-after-load 'evil
   (require 'evil-anzu))
 
-(setq doom-font (font-spec :family "Source Code Pro Semibold" :size 20)
-      doom-big-font (font-spec :family "Source Code Pro Semibold" :size 26))
+(setq doom-font (font-spec :family "Source Code Pro Semibold" :size 15)
+      doom-big-font (font-spec :family "Source Code Pro Semibold" :size 20))
