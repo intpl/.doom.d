@@ -5,6 +5,21 @@
 
 ;; (setq doom-font (font-spec :family "Source Code Pro Medium" :size 16))
 
+(defun sort-this-yaml-file ()
+  (interactive)
+  (shell-command (concatenate 'string "yml-sorter --input " (buffer-file-name)))
+  (revert-buffer :ignore-auto :noconfirm))
+
+(defun copy-file-name-to-clipboard ()
+  "Copy the current buffer file name to the clipboard."
+  (interactive)
+  (let ((filename (if (equal major-mode 'dired-mode)
+                      default-directory
+                    (buffer-name))))
+    (when filename
+      (kill-new filename)
+      (message " -> '%s' <- " filename))))
+
 (defun connect-gladecki ()
   (interactive)
   (dired "/ssh:gl:/home/bartek"))
@@ -46,6 +61,10 @@
 (with-eval-after-load 'company (company-flx-mode +1))
 (setq company-flx-limit 200)
 
+;; (setq ivy-re-builders-alist
+;;       '((ivy-switch-buffer . ivy--regex-plus)
+;;         (t . ivy--regex-fuzzy)))
+
 (defun add-string-to-end-of-line (str) "Adds a string to the end of line" (end-of-line) (insert str))
 
 (define-key evil-normal-state-map (kbd ", ,") (lambda () (interactive) (add-string-to-end-of-line ",")))
@@ -85,20 +104,13 @@
 (setq display-line-numbers-type 'relative)
 ;;(setq markdown-open-command "/Applications/MacDown.app/Contents/MacOS/MacDown")
 
-(defun copy-file-name-to-clipboard ()
-  "Copy the current buffer file name to the clipboard."
-  (interactive)
-  (let ((filename (if (equal major-mode 'dired-mode)
-                      default-directory
-                    (buffer-name))))
-    (when filename
-      (kill-new filename)
-      (message " -> '%s' <- " filename))))
-
 (define-key evil-normal-state-map (kbd "SPC f k") (lambda () (interactive) (copy-file-name-to-clipboard)))
+(define-key evil-normal-state-map (kbd ", s") (lambda () (interactive) (sort-this-yaml-file)))
 
 (define-key evil-normal-state-map (kbd ", g") (lambda () (interactive) (zoom)))
 (define-key evil-normal-state-map (kbd "SPC w ,") (lambda () (interactive) (zoom)))
+
+(define-key evil-normal-state-map (kbd ", i") (lambda () (interactive) (ielm)))
 
 (custom-set-variables '(zoom-size '(0.8 . 0.8)))
 ;(custom-set-variables '(zoom-size '(0.618 . 0.618)))

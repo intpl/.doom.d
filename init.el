@@ -30,10 +30,9 @@
 (doom! :completion
        (company          ; the ultimate code completion backend
          +auto)           ; as-you-type code completion
-       (helm             ; the *other* search engine for love and life
-        +fuzzy)          ; enable fuzzy search backend for helm
+       ;;helm             ; the *other* search engine for love and life
        ;;ido               ; the other *other* search engine...
-       ;;ivy              ; a search engine for love and life
+       ivy              ; a search engine for love and life
 
        :ui
        ;;deft              ; notational velocity for emacs
@@ -76,9 +75,12 @@
         )
        electric          ; smarter, keyword-based electric-indent
        ;;eshell            ; a consistent, cross-platform shell (wip)
-       imenu             ; an imenu sidebar and searchable code index
-       term              ; terminals in emacs
        vc                ; version-control and emacs, sitting in a tree
+
+       :term
+       ;;eshell            ; a consistent, cross-platform shell (WIP)
+       term              ; terminals in Emacs
+       ;;vterm             ; another terminals in Emacs
 
        :tools
        ;;ansible
@@ -103,7 +105,6 @@
        tmux              ; an api for interacting with tmux
        upload            ; map local to remote projects via ssh/ftp
        ;;wakatime
-       ;;vterm             ; another terminals in Emacs
 
        :lang
        ;;assembly          ; assembly for fun or debugging
@@ -167,6 +168,7 @@
        ;; toward a specific purpose. they may have additional dependencies and
        ;; should be loaded late.
        :app
+       ;; calendar
        ;;irc               ; how neckbeards socialize
        ;;(rss +org)        ; emacs as an rss reader
        ;;twitter           ; twitter client https://twitter.com/vnought
