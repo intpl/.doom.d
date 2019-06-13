@@ -5,6 +5,10 @@
 
 ;; (setq doom-font (font-spec :family "Source Code Pro Medium" :size 16))
 
+;; WIP
+;; (global-set-key (kbd "C-v") 'vterm-yank)
+;; (evil-define-key 'normal 'vterm "p" 'vterm-yank)
+
 (defun sort-this-yaml-file ()
   (interactive)
   (shell-command (concatenate 'string "yml-sorter --input " (buffer-file-name)))
@@ -98,8 +102,6 @@
 
 (define-key evil-normal-state-map (kbd ", r") (lambda () (interactive) (rvm-open-gem (getenv "GEM_HOME"))))
 
-(global-set-key (kbd "C-:") 'avy-goto-char)
-
 (setq visual-line-mode 'nil)
 (setq display-line-numbers-type 'relative)
 ;;(setq markdown-open-command "/Applications/MacDown.app/Contents/MacOS/MacDown")
@@ -130,5 +132,5 @@
 (with-eval-after-load 'evil
   (require 'evil-anzu))
 
-(setq doom-font (font-spec :family "Source Code Pro Semibold" :size 15)
-      doom-big-font (font-spec :family "Source Code Pro Semibold" :size 20))
+(setq doom-font (font-spec :family "Iosevka SS01 Medium" :size 17)
+      doom-big-font (font-spec :family "Iosevka SS01 Medium" :size 21))

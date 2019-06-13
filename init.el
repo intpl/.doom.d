@@ -32,7 +32,7 @@
          +auto)           ; as-you-type code completion
        ;;helm             ; the *other* search engine for love and life
        ;;ido               ; the other *other* search engine...
-       ivy              ; a search engine for love and life
+       (ivy +fuzzy)              ; a search engine for love and life
 
        :ui
        ;;deft              ; notational velocity for emacs
