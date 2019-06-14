@@ -22,7 +22,7 @@
                     (buffer-name))))
     (when filename
       (kill-new filename)
-      (message " -> '%s' <- " filename))))
+      (message "%s" filename))))
 
 (defun connect-gladecki ()
   (interactive)
@@ -69,6 +69,9 @@
 ;;       '((ivy-switch-buffer . ivy--regex-plus)
 ;;         (t . ivy--regex-fuzzy)))
 
+(setq ivy-re-builders-alist
+      '((t . ivy--regex-plus)))
+
 (defun add-string-to-end-of-line (str) "Adds a string to the end of line" (end-of-line) (insert str))
 
 (define-key evil-normal-state-map (kbd ", ,") (lambda () (interactive) (add-string-to-end-of-line ",")))
@@ -93,8 +96,15 @@
 (define-key evil-normal-state-map (kbd "SPC 5") (lambda () (interactive) (+workspace/switch-to 4)))
 (define-key evil-normal-state-map (kbd "SPC 6") (lambda () (interactive) (+workspace/switch-to 5)))
 
+(evil-define-key 'normal magit-mode-map (kbd "SPC 1") (lambda () (interactive) (+workspace/switch-to 0)))
+(evil-define-key 'normal magit-mode-map (kbd "SPC 2") (lambda () (interactive) (+workspace/switch-to 1)))
+(evil-define-key 'normal magit-mode-map (kbd "SPC 3") (lambda () (interactive) (+workspace/switch-to 2)))
+(evil-define-key 'normal magit-mode-map (kbd "SPC 4") (lambda () (interactive) (+workspace/switch-to 3)))
+(evil-define-key 'normal magit-mode-map (kbd "SPC 5") (lambda () (interactive) (+workspace/switch-to 4)))
+(evil-define-key 'normal magit-mode-map (kbd "SPC 6") (lambda () (interactive) (+workspace/switch-to 5)))
+
 (setenv "VISUAL" "emacsclient")
-(setenv "EDITOR" (getenv "VISUAL"))
+(setenv "EDITOR" "emacsclient")
 (setenv "TERM" "screen-256color")
 (setenv "TAG_CMD_FMT_STRING" "emacsclient +{{.LineNumber}}:{{.ColumnNumber}} {{.Filename}}")
 
@@ -113,6 +123,8 @@
 (define-key evil-normal-state-map (kbd "SPC w ,") (lambda () (interactive) (zoom)))
 
 (define-key evil-normal-state-map (kbd ", i") (lambda () (interactive) (ielm)))
+
+(define-key evil-normal-state-map (kbd ", q") (lambda () (interactive) (kill-current-buffer)))
 
 (custom-set-variables '(zoom-size '(0.8 . 0.8)))
 ;(custom-set-variables '(zoom-size '(0.618 . 0.618)))
