@@ -9,9 +9,27 @@
 ;; (global-set-key (kbd "C-v") 'vterm-yank)
 ;; (evil-define-key 'normal 'vterm "p" 'vterm-yank)
 
+(defun jta-reformat-xml ()
+  "Reformats xml to make it readable (respects current selection)."
+  (interactive)
+  (save-excursion
+    (let ((beg (point-min))
+          (end (point-max)))
+      (if (and mark-active transient-mark-mode)
+          (progn
+            (setq beg (min (point) (mark)))
+            (setq end (max (point) (mark))))
+        (widen))
+      (setq end (copy-marker end t))
+      (goto-char beg)
+      (while (re-search-forward ">\\s-*<" end t)
+        (replace-match ">\n<" t t))
+      (goto-char beg)
+      (indent-region beg end nil))))
+
 (defun sort-this-yaml-file ()
   (interactive)
-  (shell-command (concatenate 'string "yml-sorter --input " (buffer-file-name)))
+  (shell-command (concatenate 'string "/home/b/.nvm/versions/node/v8.16.0/bin/yml-sorter --input " (buffer-file-name)))
   (revert-buffer :ignore-auto :noconfirm))
 
 (defun copy-file-name-to-clipboard ()
@@ -28,10 +46,16 @@
   (interactive)
   (dired "/ssh:gl:/home/bartek"))
 
-(defun transparency (value)
+(defun transparency_in_terminal ()
+  (set-face-background 'default "unspecified-bg" (selected-frame)))
+
+(defun transparency_USE_KEYBINDINGS (value)
   "Sets the transparency of the frame window. 0=transparent/100=opaque"
   (interactive "nTransparency Value 0 - 100 opaque:")
   (set-frame-parameter (selected-frame) 'alpha value))
+
+(defun kde-blurry-emacs () (interactive) (shell-command "kde_blurry_pgrep emacs"))
+(defun kde-blurry-konsole () (interactive) (shell-command "kde_blurry_pgrep konsole"))
 
 (require 'rvm)
 (rvm-use-default) ;; use rvm's default ruby for the current Emacs session
@@ -40,8 +64,6 @@
   (rvm-activate-corresponding-ruby))
 
 (setq enh-ruby-add-encoding-comment-on-save nil)
-
-(global-company-mode t)
 
 ;; (require 'company-tabnine)
 ;; Trigger completion immediately.
@@ -52,18 +74,18 @@
 
 ;; Use the tab-and-go frontend.
 ;; Allows TAB to select and complete at the same time.
-(company-tng-configure-default)
+;;(company-tng-configure-default)
 
-(push 'company-robe company-backends)
-(push 'company-capf company-backends)
-(push 'company-dabbrev company-backends)
+(add-to-list 'company-backends '(company-robe company-capf company-dabbrev))
 
-(push 'company-tng-frontend company-frontends)
-(push 'company-pseudo-tooltip-frontend company-frontends)
-(push 'company-echo-metadata-frontend company-frontends)
+;;(add-to-list 'company-frontends 'company-tng-frontend)
+(add-to-list 'company-frontends 'company-pseudo-tooltip-frontend)
+(add-to-list 'company-frontends 'company-echo-metadata-frontend)
 
 (with-eval-after-load 'company (company-flx-mode +1))
 (setq company-flx-limit 200)
+
+(global-company-mode t)
 
 ;; (setq ivy-re-builders-alist
 ;;       '((ivy-switch-buffer . ivy--regex-plus)
@@ -89,12 +111,21 @@
 (define-key evil-normal-state-map (kbd ", t") (lambda () (interactive) (multi-term-next)))
 (define-key evil-normal-state-map (kbd ", f s") 'save-buffer)
 
+(define-key evil-normal-state-map (kbd ", f f") (lambda () (interactive) (ffap)))
+
 (define-key evil-normal-state-map (kbd "SPC 1") (lambda () (interactive) (+workspace/switch-to 0)))
 (define-key evil-normal-state-map (kbd "SPC 2") (lambda () (interactive) (+workspace/switch-to 1)))
 (define-key evil-normal-state-map (kbd "SPC 3") (lambda () (interactive) (+workspace/switch-to 2)))
 (define-key evil-normal-state-map (kbd "SPC 4") (lambda () (interactive) (+workspace/switch-to 3)))
 (define-key evil-normal-state-map (kbd "SPC 5") (lambda () (interactive) (+workspace/switch-to 4)))
 (define-key evil-normal-state-map (kbd "SPC 6") (lambda () (interactive) (+workspace/switch-to 5)))
+
+(define-key evil-visual-state-map (kbd "SPC 1") (lambda () (interactive) (+workspace/switch-to 0)))
+(define-key evil-visual-state-map (kbd "SPC 2") (lambda () (interactive) (+workspace/switch-to 1)))
+(define-key evil-visual-state-map (kbd "SPC 3") (lambda () (interactive) (+workspace/switch-to 2)))
+(define-key evil-visual-state-map (kbd "SPC 4") (lambda () (interactive) (+workspace/switch-to 3)))
+(define-key evil-visual-state-map (kbd "SPC 5") (lambda () (interactive) (+workspace/switch-to 4)))
+(define-key evil-visual-state-map (kbd "SPC 6") (lambda () (interactive) (+workspace/switch-to 5)))
 
 (evil-define-key 'normal magit-mode-map (kbd "SPC 1") (lambda () (interactive) (+workspace/switch-to 0)))
 (evil-define-key 'normal magit-mode-map (kbd "SPC 2") (lambda () (interactive) (+workspace/switch-to 1)))
@@ -103,37 +134,90 @@
 (evil-define-key 'normal magit-mode-map (kbd "SPC 5") (lambda () (interactive) (+workspace/switch-to 4)))
 (evil-define-key 'normal magit-mode-map (kbd "SPC 6") (lambda () (interactive) (+workspace/switch-to 5)))
 
-(setenv "VISUAL" "emacsclient")
-(setenv "EDITOR" "emacsclient")
 (setenv "TERM" "screen-256color")
-(setenv "TAG_CMD_FMT_STRING" "emacsclient +{{.LineNumber}}:{{.ColumnNumber}} {{.Filename}}")
 
 (setq multi-term-program "/usr/bin/fish")
 
 (define-key evil-normal-state-map (kbd ", r") (lambda () (interactive) (rvm-open-gem (getenv "GEM_HOME"))))
 
 (setq visual-line-mode 'nil)
-(setq display-line-numbers-type 'relative)
+;(setq display-line-numbers-type 'relative)
+(setq display-line-numbers-type nil)
 ;;(setq markdown-open-command "/Applications/MacDown.app/Contents/MacOS/MacDown")
 
 (define-key evil-normal-state-map (kbd "SPC f k") (lambda () (interactive) (copy-file-name-to-clipboard)))
 (define-key evil-normal-state-map (kbd ", s") (lambda () (interactive) (sort-this-yaml-file)))
 
-(define-key evil-normal-state-map (kbd ", g") (lambda () (interactive) (zoom)))
 (define-key evil-normal-state-map (kbd "SPC w ,") (lambda () (interactive) (zoom)))
+(evil-define-key 'normal magit-mode-map (kbd "SPC w ,") (lambda () (interactive) (zoom)))
 
 (define-key evil-normal-state-map (kbd ", i") (lambda () (interactive) (ielm)))
 
 (define-key evil-normal-state-map (kbd ", q") (lambda () (interactive) (kill-current-buffer)))
+(evil-define-key 'normal magit-mode-map (kbd ", q") (lambda () (interactive) (kill-current-buffer)))
+
+(define-key evil-normal-state-map (kbd ", c q") (lambda () (interactive) (kill-emacs)))
+(evil-define-key 'normal magit-mode-map (kbd ", c q") (lambda () (interactive) (kill-emacs)))
+(define-key evil-normal-state-map (kbd "SPC c q") (lambda () (interactive) (kill-emacs)))
+(evil-define-key 'normal magit-mode-map (kbd "SPC c q") (lambda () (interactive) (kill-emacs)))
+
+(define-key evil-normal-state-map (kbd ", z") (lambda () (interactive) (helm-dash-at-point)))
+(define-key evil-normal-state-map (kbd ", Z") (lambda () (interactive) (zeal-at-point)))
+
+(global-set-key (kbd "<backtab>") 'dabbrev-expand)
+(define-key minibuffer-local-map (kbd "<backtab>") 'dabbrev-expand)
+
+;; Google Translate
+
+(define-key evil-normal-state-map (kbd ", g") 'google-translate-at-point) ; normal
+(define-key evil-visual-state-map (kbd ", g") 'google-translate-at-point) ; visual
+(define-key evil-normal-state-map (kbd ", G") 'google-translate-query-translate) ; normal
+
+;; (setq google-translate-default-source-language "Detect language")
+;; (setq google-translate-default-target-language "English")
+
+;; jump with ctrl-h/j/k/l
+;;
+;;(define-key evil-normal-state-map (kbd "C-h") #'evil-window-left)
+;;(define-key evil-normal-state-map (kbd "C-j") #'evil-window-down)
+;;(define-key evil-normal-state-map (kbd "C-k") #'evil-window-up)
+;;(define-key evil-normal-state-map (kbd "C-l") #'evil-window-right)
+;;
+;;(define-key evil-insert-state-map (kbd "C-h") #'evil-window-left)
+;;(define-key evil-insert-state-map (kbd "C-j") #'evil-window-down)
+;;(define-key evil-insert-state-map (kbd "C-k") #'evil-window-up)
+;;(define-key evil-insert-state-map (kbd "C-l") #'evil-window-right)
+;;
+;;(define-key evil-visual-state-map (kbd "C-h") #'evil-window-left)
+;;(define-key evil-visual-state-map (kbd "C-j") #'evil-window-down)
+;;(define-key evil-visual-state-map (kbd "C-k") #'evil-window-up)
+;;(define-key evil-visual-state-map (kbd "C-l") #'evil-window-right)
+;;
+;;(evil-define-key 'normal magit-mode-map (kbd "C-h") (lambda () (interactive) (evil-window-left)))
+;;(evil-define-key 'normal magit-mode-map (kbd "C-j") (lambda () (interactive) (evil-window-down)))
+;;(evil-define-key 'normal magit-mode-map (kbd "C-k") (lambda () (interactive) (evil-window-up)))
+;;(evil-define-key 'normal magit-mode-map (kbd "C-l") (lambda () (interactive) (evil-window-right)))
+;;
+;;(add-hook 'term-mode-hook
+;;  (lambda ()
+;;    ;; (evil-define-key 'normal term-mode-map (kbd "C-h") 'evil-window-left)
+;;    (evil-define-key '(normal insert) term-mode-map (kbd "C-j") 'evil-window-down)
+;;    (evil-define-key '(normal insert) term-mode-map (kbd "C-k") 'evil-window-up)
+;;    ;; (evil-define-key 'normal term-mode-map (kbd "C-l") 'evil-window-right)
+;;    ))
+
+;; other things
+(define-key evil-normal-state-map (kbd ", j") #'robe-jump)
+(define-key evil-visual-state-map (kbd ", j") #'robe-jump)
 
 (custom-set-variables '(zoom-size '(0.8 . 0.8)))
 ;(custom-set-variables '(zoom-size '(0.618 . 0.618)))
 
-(defadvice evil-inner-word (around underscore-as-word activate)
-  (let ((table (copy-syntax-table (syntax-table))))
-    (modify-syntax-entry ?_ "w" table)
-    (with-syntax-table table
-      ad-do-it)))
+;;(defadvice evil-inner-word (around underscore-as-word activate)
+;;  (let ((table (copy-syntax-table (syntax-table))))
+;;    (modify-syntax-entry ?_ "w" table)
+;;    (with-syntax-table table
+;;      ad-do-it)))
 
 ;; (global-auto-complete-mode t)
 ;; (global-set-key (kbd "<S-tab>") 'ac-fuzzy-complete)
@@ -141,8 +225,20 @@
 ;; (add-hook 'ruby-mode-hook #'auto-complete-mode)
 ;; (add-hook 'enh-ruby-mode-hook #'auto-complete-mode)
 
+;; WIP (def-package-hook! helm-dash :post-init (setq helm-dash-docsets-path "~/.local/share/Zeal/Zeal/docsets"))
+
 (with-eval-after-load 'evil
   (require 'evil-anzu))
 
+(require 'evil-matchit)
+(global-evil-matchit-mode 1)
+
 (setq doom-font (font-spec :family "Iosevka SS01 Medium" :size 17)
       doom-big-font (font-spec :family "Iosevka SS01 Medium" :size 21))
+
+(setq js-indent-level 2)
+
+;;(setq doom-theme 'doom-nord)
+(setq doom-theme 'doom-moonlight)
+
+(setq projectile-project-search-path '("~/work/" "~/code/"))
