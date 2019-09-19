@@ -28,8 +28,7 @@
 ;;; License: MIT
 
 (doom! :completion
-       (company          ; the ultimate code completion backend
-         +auto)           ; as-you-type code completion
+       ;;company          ; the ultimate code completion backend
        ;;helm             ; the *other* search engine for love and life
        ;;ido               ; the other *other* search engine...
        (ivy +fuzzy)              ; a search engine for love and life

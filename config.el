@@ -60,36 +60,7 @@
 (require 'rvm)
 (rvm-use-default) ;; use rvm's default ruby for the current Emacs session
 
-(defadvice inf-ruby-console-auto (before activate-rvm-for-robe activate)
-  (rvm-activate-corresponding-ruby))
-
 (setq enh-ruby-add-encoding-comment-on-save nil)
-
-;; (require 'company-tabnine)
-;; Trigger completion immediately.
-(setq company-idle-delay 0)
-
-;; Number the candidates (use M-1, M-2 etc to select completions).
-(setq company-show-numbers t)
-
-;; Use the tab-and-go frontend.
-;; Allows TAB to select and complete at the same time.
-;;(company-tng-configure-default)
-
-(add-to-list 'company-backends '(company-robe company-capf company-dabbrev))
-
-;;(add-to-list 'company-frontends 'company-tng-frontend)
-(add-to-list 'company-frontends 'company-pseudo-tooltip-frontend)
-(add-to-list 'company-frontends 'company-echo-metadata-frontend)
-
-(with-eval-after-load 'company (company-flx-mode +1))
-(setq company-flx-limit 200)
-
-(global-company-mode t)
-
-;; (setq ivy-re-builders-alist
-;;       '((ivy-switch-buffer . ivy--regex-plus)
-;;         (t . ivy--regex-fuzzy)))
 
 (setq ivy-re-builders-alist
       '((t . ivy--regex-plus)))
@@ -178,37 +149,37 @@
 
 ;; jump with ctrl-h/j/k/l
 ;;
-;;(define-key evil-normal-state-map (kbd "C-h") #'evil-window-left)
-;;(define-key evil-normal-state-map (kbd "C-j") #'evil-window-down)
-;;(define-key evil-normal-state-map (kbd "C-k") #'evil-window-up)
-;;(define-key evil-normal-state-map (kbd "C-l") #'evil-window-right)
+(define-key evil-normal-state-map (kbd "C-h") #'evil-window-left)
+(define-key evil-normal-state-map (kbd "C-j") #'evil-window-down)
+(define-key evil-normal-state-map (kbd "C-k") #'evil-window-up)
+(define-key evil-normal-state-map (kbd "C-l") #'evil-window-right)
+
+(define-key evil-insert-state-map (kbd "C-h") #'evil-window-left)
+(define-key evil-insert-state-map (kbd "C-j") #'evil-window-down)
+(define-key evil-insert-state-map (kbd "C-k") #'evil-window-up)
+(define-key evil-insert-state-map (kbd "C-l") #'evil-window-right)
+
+(define-key evil-visual-state-map (kbd "C-h") #'evil-window-left)
+(define-key evil-visual-state-map (kbd "C-j") #'evil-window-down)
+(define-key evil-visual-state-map (kbd "C-k") #'evil-window-up)
+(define-key evil-visual-state-map (kbd "C-l") #'evil-window-right)
+
+(evil-define-key 'normal magit-mode-map (kbd "C-h") (lambda () (interactive) (evil-window-left)))
+(evil-define-key 'normal magit-mode-map (kbd "C-j") (lambda () (interactive) (evil-window-down)))
+(evil-define-key 'normal magit-mode-map (kbd "C-k") (lambda () (interactive) (evil-window-up)))
+(evil-define-key 'normal magit-mode-map (kbd "C-l") (lambda () (interactive) (evil-window-right)))
 ;;
-;;(define-key evil-insert-state-map (kbd "C-h") #'evil-window-left)
-;;(define-key evil-insert-state-map (kbd "C-j") #'evil-window-down)
-;;(define-key evil-insert-state-map (kbd "C-k") #'evil-window-up)
-;;(define-key evil-insert-state-map (kbd "C-l") #'evil-window-right)
-;;
-;;(define-key evil-visual-state-map (kbd "C-h") #'evil-window-left)
-;;(define-key evil-visual-state-map (kbd "C-j") #'evil-window-down)
-;;(define-key evil-visual-state-map (kbd "C-k") #'evil-window-up)
-;;(define-key evil-visual-state-map (kbd "C-l") #'evil-window-right)
-;;
-;;(evil-define-key 'normal magit-mode-map (kbd "C-h") (lambda () (interactive) (evil-window-left)))
-;;(evil-define-key 'normal magit-mode-map (kbd "C-j") (lambda () (interactive) (evil-window-down)))
-;;(evil-define-key 'normal magit-mode-map (kbd "C-k") (lambda () (interactive) (evil-window-up)))
-;;(evil-define-key 'normal magit-mode-map (kbd "C-l") (lambda () (interactive) (evil-window-right)))
-;;
-;;(add-hook 'term-mode-hook
-;;  (lambda ()
-;;    ;; (evil-define-key 'normal term-mode-map (kbd "C-h") 'evil-window-left)
-;;    (evil-define-key '(normal insert) term-mode-map (kbd "C-j") 'evil-window-down)
-;;    (evil-define-key '(normal insert) term-mode-map (kbd "C-k") 'evil-window-up)
-;;    ;; (evil-define-key 'normal term-mode-map (kbd "C-l") 'evil-window-right)
-;;    ))
+(with-eval-after-load 'evil-maps
+    (evil-define-key '(normal insert) term-mode-map (kbd "M-.") nil)
+    (evil-define-key '(normal insert) term-mode-map (kbd "C-h") 'evil-window-left)
+    (evil-define-key '(normal insert) term-mode-map (kbd "C-j") 'evil-window-down)
+    (evil-define-key '(normal insert) term-mode-map (kbd "C-k") 'evil-window-up)
+    (evil-define-key '(normal insert) term-mode-map (kbd "C-l") 'evil-window-right)
+    )
 
 ;; other things
-(define-key evil-normal-state-map (kbd ", j") #'robe-jump)
-(define-key evil-visual-state-map (kbd ", j") #'robe-jump)
+;;(define-key evil-normal-state-map (kbd ", j") #'robe-jump)
+;;(define-key evil-visual-state-map (kbd ", j") #'robe-jump)
 
 (custom-set-variables '(zoom-size '(0.8 . 0.8)))
 ;(custom-set-variables '(zoom-size '(0.618 . 0.618)))
@@ -218,12 +189,6 @@
 ;;    (modify-syntax-entry ?_ "w" table)
 ;;    (with-syntax-table table
 ;;      ad-do-it)))
-
-;; (global-auto-complete-mode t)
-;; (global-set-key (kbd "<S-tab>") 'ac-fuzzy-complete)
-
-;; (add-hook 'ruby-mode-hook #'auto-complete-mode)
-;; (add-hook 'enh-ruby-mode-hook #'auto-complete-mode)
 
 ;; WIP (def-package-hook! helm-dash :post-init (setq helm-dash-docsets-path "~/.local/share/Zeal/Zeal/docsets"))
 
@@ -241,4 +206,29 @@
 ;;(setq doom-theme 'doom-nord)
 (setq doom-theme 'doom-moonlight)
 
-(setq projectile-project-search-path '("~/work/" "~/code/"))
+(setq projectile-project-search-path '("~/work/" "~/code/" "~/.doom.d/"))
+
+
+(setq hippie-expand-try-functions-list '(try-expand-dabbrev
+                                         try-expand-dabbrev-all-buffers
+                                         try-expand-dabbrev-from-kill
+                                         try-complete-file-name-partially
+                                         try-complete-file-name
+                                         try-expand-all-abbrevs
+                                         try-expand-list
+                                         try-expand-line
+                                         try-complete-lisp-symbol-partially
+                                         try-complete-lisp-symbol))
+
+(defun indent-or-expand (arg)
+  "Either indent according to mode, or expand the word preceding
+point."
+  (interactive "*P")
+  (if (and
+       (or (bobp) (= ?w (char-syntax (char-before))))
+       (or (eobp) (not (= ?w (char-syntax (char-after))))))
+      (dabbrev-expand arg)
+    (indent-according-to-mode)))
+
+(global-set-key (kbd "TAB") 'indent-or-expand)
+
