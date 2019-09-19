@@ -232,3 +232,6 @@ point."
 
 (global-set-key (kbd "TAB") 'indent-or-expand)
 
+(with-eval-after-load 'evil
+  (defalias #'forward-evil-word #'forward-evil-symbol))
+
