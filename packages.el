@@ -28,10 +28,11 @@
 ;;(package! memrise :recipe (:fetcher github :repo "SavchenkoValeriy/memrise.el"))
 (package! reason-mode :recipe (:host github :repo "reasonml-editor/reason-mode"))
 (package! evil-matchit)
+(package! deadgrep)
 
 ;; Remove from default DOOM installation
 (package! evil-snipe :disable t)
 (package! solaire-mode :disable t)
-(package! forge :disable t)
+;;(package! forge :disable t)
 (package! evil-escape :disable t)
 (package! robe :disable t)

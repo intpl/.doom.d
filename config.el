@@ -147,36 +147,6 @@
 ;; (setq google-translate-default-source-language "Detect language")
 ;; (setq google-translate-default-target-language "English")
 
-;; jump with ctrl-h/j/k/l
-;;
-(define-key evil-normal-state-map (kbd "C-h") #'evil-window-left)
-(define-key evil-normal-state-map (kbd "C-j") #'evil-window-down)
-(define-key evil-normal-state-map (kbd "C-k") #'evil-window-up)
-(define-key evil-normal-state-map (kbd "C-l") #'evil-window-right)
-
-(define-key evil-insert-state-map (kbd "C-h") #'evil-window-left)
-(define-key evil-insert-state-map (kbd "C-j") #'evil-window-down)
-(define-key evil-insert-state-map (kbd "C-k") #'evil-window-up)
-(define-key evil-insert-state-map (kbd "C-l") #'evil-window-right)
-
-(define-key evil-visual-state-map (kbd "C-h") #'evil-window-left)
-(define-key evil-visual-state-map (kbd "C-j") #'evil-window-down)
-(define-key evil-visual-state-map (kbd "C-k") #'evil-window-up)
-(define-key evil-visual-state-map (kbd "C-l") #'evil-window-right)
-
-(evil-define-key 'normal magit-mode-map (kbd "C-h") (lambda () (interactive) (evil-window-left)))
-(evil-define-key 'normal magit-mode-map (kbd "C-j") (lambda () (interactive) (evil-window-down)))
-(evil-define-key 'normal magit-mode-map (kbd "C-k") (lambda () (interactive) (evil-window-up)))
-(evil-define-key 'normal magit-mode-map (kbd "C-l") (lambda () (interactive) (evil-window-right)))
-;;
-(with-eval-after-load 'evil-maps
-    (evil-define-key '(normal insert) term-mode-map (kbd "M-.") nil)
-    (evil-define-key '(normal insert) term-mode-map (kbd "C-h") 'evil-window-left)
-    (evil-define-key '(normal insert) term-mode-map (kbd "C-j") 'evil-window-down)
-    (evil-define-key '(normal insert) term-mode-map (kbd "C-k") 'evil-window-up)
-    (evil-define-key '(normal insert) term-mode-map (kbd "C-l") 'evil-window-right)
-    )
-
 ;; other things
 ;;(define-key evil-normal-state-map (kbd ", j") #'robe-jump)
 ;;(define-key evil-visual-state-map (kbd ", j") #'robe-jump)
@@ -235,3 +205,6 @@ point."
 (with-eval-after-load 'evil
   (defalias #'forward-evil-word #'forward-evil-symbol))
 
+(global-set-key (kbd "<f5>") #'deadgrep)
+
+(load-file "~/.doom.d/better-navigate.el")
