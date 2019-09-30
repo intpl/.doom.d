@@ -84,6 +84,8 @@
 
 (define-key evil-normal-state-map (kbd ", f f") (lambda () (interactive) (ffap)))
 
+(define-key evil-normal-state-map (kbd ", l") (lambda () (interactive) (what-line)))
+
 (define-key evil-normal-state-map (kbd "SPC 1") (lambda () (interactive) (+workspace/switch-to 0)))
 (define-key evil-normal-state-map (kbd "SPC 2") (lambda () (interactive) (+workspace/switch-to 1)))
 (define-key evil-normal-state-map (kbd "SPC 3") (lambda () (interactive) (+workspace/switch-to 2)))
@@ -111,9 +113,9 @@
 
 (define-key evil-normal-state-map (kbd ", r") (lambda () (interactive) (rvm-open-gem (getenv "GEM_HOME"))))
 
-(setq visual-line-mode 'nil)
-;(setq display-line-numbers-type 'relative)
-(setq display-line-numbers-type nil)
+;; (setq visual-line-mode 'nil)
+(setq display-line-numbers-type 'relative)
+;; (setq display-line-numbers-type nil)
 ;;(setq markdown-open-command "/Applications/MacDown.app/Contents/MacOS/MacDown")
 
 (define-key evil-normal-state-map (kbd "SPC f k") (lambda () (interactive) (copy-file-name-to-clipboard)))
@@ -173,8 +175,8 @@
 
 (setq js-indent-level 2)
 
-;;(setq doom-theme 'doom-nord)
-(setq doom-theme 'doom-moonlight)
+;;(setq doom-theme 'doom-moonlight)
+(setq doom-theme 'doom-palenight)
 
 (setq projectile-project-search-path '("~/work/" "~/code/" "~/.doom.d/"))
 
@@ -202,9 +204,12 @@ point."
 
 (global-set-key (kbd "TAB") 'indent-or-expand)
 
-(with-eval-after-load 'evil
-  (defalias #'forward-evil-word #'forward-evil-symbol))
+;;(with-eval-after-load 'evil
+;;  (defalias #'forward-evil-word #'forward-evil-symbol))
 
 (global-set-key (kbd "<f5>") #'deadgrep)
 
 (load-file "~/.doom.d/better-navigate.el")
+
+(unless (display-graphic-p)
+  (xclip-mode 1))
