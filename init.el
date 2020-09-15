@@ -82,7 +82,7 @@
 
        :tools
        ;;ansible
-       ;;docker
+       docker
        ;;direnv
        editorconfig      ; let someone else argue about tabs vs spaces
        ;;ein               ; tame jupyter notebooks with emacs
