@@ -32,6 +32,7 @@
 (package! evil-matchit)
 (package! deadgrep)
 (package! ob-elixir)
+(package! yaml-mode)
 
 ;; Remove from default DOOM installation
 (package! evil-snipe :disable t)
