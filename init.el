@@ -82,13 +82,11 @@
 
        :tools
        ;;ansible
-       ;;docker
+       docker
        ;;direnv
        editorconfig      ; let someone else argue about tabs vs spaces
        ;;ein               ; tame jupyter notebooks with emacs
        eval
-       flycheck
-       flyspell          ; tasing you for misspelling mispelling
        ;;gist              ; interacting with github gists
        (lookup           ; helps you navigate your code and documentation
         +docsets)        ; ...or in Dash docsets locally
@@ -103,6 +101,9 @@
        tmux              ; an api for interacting with tmux
        upload            ; map local to remote projects via ssh/ftp
        ;;wakatime
+
+       :os
+       tty
 
        :lang
        ;;assembly          ; assembly for fun or debugging
@@ -127,7 +128,7 @@
        ;;julia             ; a better, faster matlab
        ;;latex             ; writing papers in emacs has never been so fun
        ;;ledger            ; an accounting system in emacs
-       ;;lua               ; one-based indices? one-based indices
+       lua               ; one-based indices? one-based indices
        markdown          ; writing docs for people to ignore
        ;;nim               ; python + lisp at the speed of c
        ;;nix               ; i hereby declare "nix geht mehr!"
@@ -177,6 +178,11 @@
        :collab
        ;;floobits          ; peer programming for a price
        ;;impatient-mode    ; show off code over http
+
+       :checkers
+       syntax              ; tasing you for every semicolon you forget
+       (spell +flyspell) ; tasing you for misspelling mispelling
+       ;;grammar           ; tasing grammar mistake every you make
 
        :config
        ;; for literate config users. this will tangle+compile a config.org

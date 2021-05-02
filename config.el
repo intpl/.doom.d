@@ -215,13 +215,12 @@
 (require 'evil-matchit)
 (global-evil-matchit-mode 1)
 
-(setq doom-font (font-spec :family "Iosevka SS01 Medium" :size 17)
-      doom-big-font (font-spec :family "Iosevka SS01 Medium" :size 21))
+(setq doom-font (font-spec :family "Iosevka Term SS09" :size 15 :weight 'regular)
+      doom-big-font (font-spec :family "Iosevka Term SS09" :size 20 :weight 'regular))
 
 (setq js-indent-level 2)
 
-;;(setq doom-theme 'doom-moonlight)
-(setq doom-theme 'doom-palenight)
+(setq doom-theme 'doom-Iosvkem)
 
 (setq projectile-project-search-path '("~/work/" "~/code/" "~/.doom.d/"))
 
