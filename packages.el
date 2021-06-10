@@ -41,4 +41,6 @@
 (package! evil-escape :disable t)
 (package! robe :disable t)
 
+(package! all-the-icons-ivy-rich)
+
 ;; TODO add ox-reveal

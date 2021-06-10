@@ -218,3 +218,6 @@
 
 (unless (server-running-p)
   (server-start))
+
+(all-the-icons-ivy-rich-mode 1)
+(ivy-rich-mode 1)
